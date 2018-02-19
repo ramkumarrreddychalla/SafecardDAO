@@ -4,8 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safecard.jpa.model.Customer;
 import com.safecard.jpa.model.TrackRecord;
 import com.safecard.jpa.repo.CustomerRepository;
+import com.safecard.jpa.repo.TrackRecordPaginationRepository;
 import com.safecard.jpa.repo.TrackRecordRepository;
+import com.safecard.jpa.service.TrackRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +29,9 @@ import java.util.List;
 public class TrackRecordController {
 	@Autowired
 	TrackRecordRepository repository;
+
+	@Autowired
+	TrackRecordService trackRecordService;
 
 	@RequestMapping(method = RequestMethod.POST, value = "/save1")
 	public TrackRecord save(){
@@ -91,6 +98,13 @@ public class TrackRecordController {
 	@RequestMapping(method = RequestMethod.GET, value = "/findbylotnumber")
 	public Collection<TrackRecord> fetchDataByLotNumber(@RequestParam("lotNumber") String lotNumber){
 		return this.repository.findBylotNumber(lotNumber);
+	}
+
+
+	@RequestMapping(method=RequestMethod.GET, value="/findany")
+	Page<TrackRecord> list(Pageable pageable){
+		Page<TrackRecord> trackRecords = trackRecordService.listAllByPage(pageable);
+		return trackRecords;
 	}
 }
 
