@@ -1,4 +1,4 @@
-package com.safecard.jpa.com.safecard.file.track;
+package com.safecard.jpa.file.track;
 
 import com.safecard.jpa.model.TrackRecord;
 import org.springframework.http.HttpEntity;
@@ -18,6 +18,7 @@ public class TrackReader {
         List<TrackRecord> trackRecords = new TrackReader().readFile();
         String trackRecordResourceUrl = "http://localhost:8080/trackrecord/save";
         RestTemplate restTemplate = new RestTemplate();
+        if(trackRecords != null && trackRecords.isEmpty()) return;
         trackRecords.remove(0);
         for(TrackRecord trackRecord : trackRecords){
             HttpEntity<TrackRecord> request = new HttpEntity<>(trackRecord);
@@ -30,6 +31,10 @@ public class TrackReader {
     private List<TrackRecord> readFile(){
         ClassLoader classLoader = getClass().getClassLoader();
         URL resource = classLoader.getResource("trackrecords.csv");
+        if(resource != null && null == resource.getFile()) {
+            System.out.println("File Not Found ");
+            return null;
+        }
         File file = new File(resource.getFile());
 
         try {

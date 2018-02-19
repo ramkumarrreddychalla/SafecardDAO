@@ -1,5 +1,7 @@
 package com.safecard.jpa.model;
 
+import com.safecard.jpa.converter.DateTimeStampConverter;
+
 import java.util.Date;
 
 import javax.persistence.*;
@@ -49,7 +51,7 @@ public class TrackRecord {
 	@Column(name = "CARD_DESIGN_ID")
 	private String cardDesignId;
 
-	@Column(name = "CREATE_TS", insertable=false, updatable=true)
+	@Column(name = "CREATE_TS", insertable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdDateTime;
 
@@ -104,30 +106,31 @@ public class TrackRecord {
 	public long getId() {	return id;	}
 
 	public void setId(long id) {  this.id = id;	}
+
 	//
-//	public String getCvc() {
-//		return cvc;
-//	}
-//
-//	public void setCvc(String cvc) {
-//		this.cvc = cvc;
-//	}
-//
-//	public String getTrack1Data() {
-//		return track1Data;
-//	}
-//
-//	public void setTrack1Data(String track1Data) {
-//		this.track1Data = track1Data;
-//	}
-//
-//	public String getTrack2Data() {
-//		return track2Data;
-//	}
-//
-//	public void setTrack2Data(String track2Data) {
-//		this.track2Data = track2Data;
-//	}
+	//	public String getCvc() {
+	//		return cvc;
+	//	}
+	//
+	//	public void setCvc(String cvc) {
+	//		this.cvc = cvc;
+	//	}
+	//
+	//	public String getTrack1Data() {
+	//		return track1Data;
+	//	}
+	//
+	//	public void setTrack1Data(String track1Data) {
+	//		this.track1Data = track1Data;
+	//	}
+	//
+	//	public String getTrack2Data() {
+	//		return track2Data;
+	//	}
+	//
+	//	public void setTrack2Data(String track2Data) {
+	//		this.track2Data = track2Data;
+	//	}
 
 	public String getCardDesignId() {
 		return cardDesignId;
@@ -137,14 +140,9 @@ public class TrackRecord {
 		this.cardDesignId = cardDesignId;
 	}
 
-	public Date getCreatedDateTime() {
-		return createdDateTime;
-	}
+	public Date getCreatedDateTime() {		return createdDateTime;	}
 
-	public void setCreatedDateTime(Date createdDateTime) {
-		this.createdDateTime = createdDateTime;
-	}
-
+	public void setCreatedDateTime(Date createdDateTime) {		this.createdDateTime = createdDateTime;	}
 
 	public TrackRecord() {
 	}
