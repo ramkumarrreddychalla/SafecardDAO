@@ -65,7 +65,7 @@ public class TrackRecordController {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/trackrecord/findbylotnumber/{id}").buildAndExpand(result.getId()).toUri());
-		return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+		return new ResponseEntity<>(result, headers, HttpStatus.CREATED);
 
 		//return ResponseEntity.created(location).build();
 	}

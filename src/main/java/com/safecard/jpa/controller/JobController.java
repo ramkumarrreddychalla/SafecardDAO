@@ -41,26 +41,26 @@ public class JobController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/save")
-	public ResponseEntity<?> save(@RequestBody Job Job, UriComponentsBuilder ucBuilder){
+	public ResponseEntity<?> save(@RequestBody Job job, UriComponentsBuilder ucBuilder){
 		ObjectMapper mapper = new ObjectMapper();
 
 		try {
 			//Object to JSON in String
-			String jsonInString = mapper.writeValueAsString(Job);
+			String jsonInString = mapper.writeValueAsString(job);
 			System.out.println("jsonInString " + jsonInString);
 		}catch(Exception  exp){
 			exp.printStackTrace();
 		}
 
 		//Job result = repository.save(new Job(Job.getLotNumber(), Job.getCardNumber()));
-		Job result = jobService.save(Job);
+		Job result = jobService.save(job);
 		URI location = ServletUriComponentsBuilder //.path("/findbyid").buildAndExpand(result.getId()).toUri();
 				.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(result.getId()).toUri();
 
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("/Job/findbyId/{id}").buildAndExpand(result.getId()).toUri());
-		return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+		headers.setLocation(ucBuilder.path("/job/findbyId/{id}").buildAndExpand(result.getId()).toUri());
+		return new ResponseEntity<>(result, headers, HttpStatus.CREATED);
 
 		//return ResponseEntity.created(location).build();
 	}

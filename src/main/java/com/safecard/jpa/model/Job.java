@@ -32,6 +32,11 @@ public class Job {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdDateTime;
 
+	@Column(name = "RECORDS_COUNT")
+	private long recordsCount;
+
+	public Job(){}
+
 	public Job(String jobName, String fileName, Date jobDate, Date createdDateTime) {
 		this.jobName = jobName;
 		this.fileName = fileName;
@@ -43,6 +48,13 @@ public class Job {
 		this.jobName = jobName;
 		this.fileName = fileName;
 		this.jobDate = jobDate;
+	}
+
+	public Job(String jobName, String fileName, Date jobDate, long recordsCount) {
+		this.jobName = jobName;
+		this.fileName = fileName;
+		this.jobDate = jobDate;
+		this.recordsCount = recordsCount;
 	}
 
 	public long getId() {
@@ -83,5 +95,13 @@ public class Job {
 
 	public void setCreatedDateTime(Date createdDateTime) {
 		this.createdDateTime = createdDateTime;
+	}
+
+	public long getRecordsCount() {
+		return recordsCount;
+	}
+
+	public void setRecordsCount(long recordsCount) {
+		this.recordsCount = recordsCount;
 	}
 }
