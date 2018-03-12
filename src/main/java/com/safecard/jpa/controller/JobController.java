@@ -23,11 +23,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/job")
 public class JobController {
-	@Autowired
-	JobRepository repository;
 
 	@Autowired
-	JobService JobService;
+	JobService jobService;
 
 	@RequestMapping(method = RequestMethod.POST, value = "/save1")
 	public Job save(){
@@ -39,7 +37,7 @@ public class JobController {
 		}catch(Exception  exp){
 			exp.printStackTrace();
 		}
-		return  repository.save(new Job("10", "11", new java.util.Date()));
+		return  jobService.save(new Job("10", "11", new java.util.Date()));
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/save")
@@ -55,7 +53,7 @@ public class JobController {
 		}
 
 		//Job result = repository.save(new Job(Job.getLotNumber(), Job.getCardNumber()));
-		Job result = repository.save(Job);
+		Job result = jobService.save(Job);
 		URI location = ServletUriComponentsBuilder //.path("/findbyid").buildAndExpand(result.getId()).toUri();
 				.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(result.getId()).toUri();
@@ -69,36 +67,31 @@ public class JobController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/saveall")
 	public ResponseEntity<?> saveAll(@RequestBody List<Job> Jobs){
-		Iterable<Job> IterableJobs = repository.save(Jobs);
-		//  URI location = new URI("");
-		//	 ServletUriComponentsBuilder
-		//	  .fromCurrentRequest().path("/{id}")
-		//	  .buildAndExpand(result.getId()).toUri();
-
-		return null; //ResponseEntity.created(location).build();
+		List<Job> jobsList = jobService.save(Jobs);
+		HttpHeaders responseHeaders = new HttpHeaders();
+		return new ResponseEntity<>(jobsList, responseHeaders, HttpStatus.OK);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/findall")
 	public Collection<Job> findAll(){
 		Collection<Job> Jobs = new ArrayList<>();
-		this.repository.findAll().forEach(Jobs::add);
-		return Jobs;
+		return jobService.findAll();
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/findbyid")
 	public Job findById(@RequestParam("id") long id){
-		return this.repository.findOne(id);
+		return jobService.findById(id);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/findbyFileName")
 	public Collection<Job> fetchDataByLotNumber(@RequestParam("fileName") String fileName){
-		return this.repository.findByFileName(fileName);
+		return jobService.findByFileName(fileName);
 	}
 
 
 	@RequestMapping(method=RequestMethod.GET, value="/findany")
 	Page<Job> list(Pageable pageable){
-		Page<Job> Jobs = JobService.listAllByPage(pageable);
+		Page<Job> Jobs = jobService.listAllByPage(pageable);
 		return Jobs;
 	}
 }
