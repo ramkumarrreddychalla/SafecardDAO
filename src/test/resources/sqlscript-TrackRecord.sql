@@ -14,7 +14,9 @@
 --     ship_name character varying(255) COLLATE pg_catalog."default",
 --     create_ts timestamp without time zone DEFAULT now(),
 --     card_no character varying(255) COLLATE pg_catalog."default",
+--     job_id bigint NOT NULL,
 --     CONSTRAINT trackrecord_pkey PRIMARY KEY (id)
+--     FOREIGN KEY (job_id) REFERENCES job (id)
 -- )
 -- WITH (
 --     OIDS = FALSE

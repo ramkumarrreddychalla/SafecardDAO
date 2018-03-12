@@ -55,6 +55,9 @@ public class TrackRecord {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdDateTime;
 
+	@Column(name = "JOB_ID")
+	private String jobId;
+
 	public String getLotNumber() {
 		return lotNumber;
 	}
