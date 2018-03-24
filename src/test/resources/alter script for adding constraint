@@ -1,0 +1,8 @@
+-- ALTER TABLE trackrecord ADD COLUMN job_id bigint;
+--
+-- UPDATE trackrecord SET job_id = 1;
+--
+-- DELETE FROM TRACKRECORD
+--
+-- ALTER TABLE trackrecord
+-- ADD CONSTRAINT trackrecord_to_job FOREIGN KEY (job_id) REFERENCES job (job_id);

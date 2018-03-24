@@ -1,7 +1,7 @@
 -- -- Table: public.trackrecord
-
+--
 -- -- DROP TABLE public.trackrecord;
-
+--
 -- CREATE TABLE public.trackrecord
 -- (
 --     cardholder_name character varying(20) COLLATE pg_catalog."default",
@@ -14,12 +14,17 @@
 --     ship_name character varying(255) COLLATE pg_catalog."default",
 --     create_ts timestamp without time zone DEFAULT now(),
 --     card_no character varying(255) COLLATE pg_catalog."default",
---     CONSTRAINT trackrecord_pkey PRIMARY KEY (id)
+--     job_id bigint,
+--     CONSTRAINT trackrecord_pkey PRIMARY KEY (id),
+--     CONSTRAINT trackrecord_to_job FOREIGN KEY (job_id)
+--         REFERENCES public.job (job_id) MATCH SIMPLE
+--         ON UPDATE NO ACTION
+--         ON DELETE NO ACTION
 -- )
 -- WITH (
 --     OIDS = FALSE
 -- )
 -- TABLESPACE pg_default;
-
+--
 -- ALTER TABLE public.trackrecord
 --     OWNER to postgres;

@@ -27,8 +27,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/trackrecord")
 public class TrackRecordController {
-	@Autowired
-	TrackRecordRepository repository;
 
 	@Autowired
 	TrackRecordService trackRecordService;
@@ -43,7 +41,7 @@ public class TrackRecordController {
 		}catch(Exception  exp){
 			exp.printStackTrace();
 		}
-		TrackRecord result = repository.save(new TrackRecord("10", "11" ));
+		TrackRecord result = trackRecordService.save(new TrackRecord("10", "11" ));
 		return result;
 	}
 	
@@ -60,44 +58,40 @@ public class TrackRecordController {
 		}
 
 		//TrackRecord result = repository.save(new TrackRecord(trackRecord.getLotNumber(), trackRecord.getCardNumber()));
-		TrackRecord result = repository.save(trackRecord);
+		TrackRecord result = trackRecordService.save(trackRecord);
 		URI location = ServletUriComponentsBuilder //.path("/findbyid").buildAndExpand(result.getId()).toUri();
 				.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(result.getId()).toUri();
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/trackrecord/findbylotnumber/{id}").buildAndExpand(result.getId()).toUri());
-		return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+		return new ResponseEntity<>(result, headers, HttpStatus.CREATED);
 
 		//return ResponseEntity.created(location).build();
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/saveall")
 	public ResponseEntity<?> saveAll(@RequestBody List<TrackRecord> trackRecords){
-		Iterable<TrackRecord> IterableTrackRecords = repository.save(trackRecords);
-		//  URI location = new URI("");
-		//	 ServletUriComponentsBuilder
-		//	  .fromCurrentRequest().path("/{id}")
-		//	  .buildAndExpand(result.getId()).toUri();
-
-		return null; //ResponseEntity.created(location).build();
+		List<TrackRecord> trackRecordList = trackRecordService.save(trackRecords);
+		HttpHeaders responseHeaders = new HttpHeaders();
+		return new ResponseEntity<>(trackRecordList, responseHeaders, HttpStatus.OK);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/findall")
 	public Collection<TrackRecord> findAll(){
 		Collection<TrackRecord> trackRecords = new ArrayList<>();
-		this.repository.findAll().forEach(trackRecords::add);
+		trackRecordService.findAll().forEach(trackRecords::add);
 		return trackRecords;
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/findbyid")
 	public TrackRecord findById(@RequestParam("id") long id){
-		return this.repository.findOne(id);
+		return trackRecordService.findById(id);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/findbylotnumber")
 	public Collection<TrackRecord> fetchDataByLotNumber(@RequestParam("lotNumber") String lotNumber){
-		return this.repository.findBylotNumber(lotNumber);
+		return trackRecordService.fetchDataByLotNumber(lotNumber);
 	}
 
 

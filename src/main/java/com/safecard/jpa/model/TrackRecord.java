@@ -55,6 +55,9 @@ public class TrackRecord {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdDateTime;
 
+	@Column(name = "JOB_ID")
+	private long jobId;
+
 	public String getLotNumber() {
 		return lotNumber;
 	}
@@ -103,9 +106,21 @@ public class TrackRecord {
 		this.expiryDate = expiryDate;
 	}
 
-	public long getId() {	return id;	}
+	public long getId() {
+		return id;
+	}
 
-	public void setId(long id) {  this.id = id;	}
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public long getJobId() {
+		return jobId;
+	}
+
+	public void setJobId(long jobId) {
+		this.jobId = jobId;
+	}
 
 	//
 	//	public String getCvc() {
