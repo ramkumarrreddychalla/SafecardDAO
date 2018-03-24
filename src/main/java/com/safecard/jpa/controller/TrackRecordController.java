@@ -31,20 +31,6 @@ public class TrackRecordController {
 	@Autowired
 	TrackRecordService trackRecordService;
 
-	@RequestMapping(method = RequestMethod.POST, value = "/save1")
-	public TrackRecord save(){
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			//Object to JSON in String
-			String jsonInString = mapper.writeValueAsString((new TrackRecord("10", "11")));
-			System.out.println("jsonInString " + jsonInString);
-		}catch(Exception  exp){
-			exp.printStackTrace();
-		}
-		TrackRecord result = trackRecordService.save(new TrackRecord("10", "11" ));
-		return result;
-	}
-	
 	@RequestMapping(method = RequestMethod.POST, value = "/save")
 	public ResponseEntity<?> save(@RequestBody TrackRecord trackRecord, UriComponentsBuilder ucBuilder){
 		ObjectMapper mapper = new ObjectMapper();
@@ -89,9 +75,9 @@ public class TrackRecordController {
 		return trackRecordService.findById(id);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/findbylotnumber")
-	public Collection<TrackRecord> fetchDataByLotNumber(@RequestParam("lotNumber") String lotNumber){
-		return trackRecordService.fetchDataByLotNumber(lotNumber);
+	@RequestMapping(method = RequestMethod.GET, value = "/findbypannumber")
+	public Collection<TrackRecord> fetchDataByLotNumber(@RequestParam("panNumber") String panNumber){
+		return trackRecordService.fetchDataByPanNumber(panNumber);
 	}
 
 

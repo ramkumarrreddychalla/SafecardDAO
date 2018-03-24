@@ -20,66 +20,86 @@ public class TrackRecord {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@Column(name = "LOT_NO")
-	private String lotNumber;
-	
-	@Column(name = "CONTROL_NO")
-	private String controlNumber;
+	@Column(name = "PAN_NO")
+	private String panNumber;
 
-	@Column(name = "CARD_NO")
-	private String cardNumber;
+	@Column(name = "PAN_SEQ_NO")
+	private String panSequenceNumber;
 
-	@Column(name = "CARDHOLDER_NAME")
-	private String cardHolderName;
-
-	@Column(name = "SHIP_NAME")
-	private String shipName;
+	@Column(name = "SVC_CODE")
+	private String serviceCode;
 
 	@Column(name = "EXPIRY_DATE")
 	@Temporal(TemporalType.DATE)
 	private Date expiryDate;
 
-//	@Column(name = "CVC_CVV2")
-//	private String cvc;
-//
-//	@Column(name = "TRACK1_DATA")
-//	private String track1Data;
-//
-//	@Column(name = "TRACK2_DATA")
-//	private String track2Data;
+	@Column(name = "EFFECTIVE_DATE")
+	@Temporal(TemporalType.DATE)
+	private Date effDate;
 
-	@Column(name = "CARD_DESIGN_ID")
-	private String cardDesignId;
+	@Column(name = "CARDHOLDER_NAME")
+	private String cardHolderName;
 
-	@Column(name = "CREATE_TS", insertable = false)
+	@Column(name = "TRACK1_DATA")
+	private String track1Data;
+
+	@Column(name = "TRACK2_DATA")
+	private String track2Data;
+
+	@Column(name = "CVV_CODE1")
+	private String cvvCode1;
+
+	@Column(name = "CVV_CODE2")
+	private String cvvCode2;
+
+	@Column(name = "PIN")
+	private String pin;
+
+	@Column(name = "CREATE_TS")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdDateTime;
 
 	@Column(name = "JOB_ID")
 	private long jobId;
 
-	public String getLotNumber() {
-		return lotNumber;
+	public String getPanNumber() {
+		return panNumber;
 	}
 
-	public void setLotNumber(String lotNumber) {
-		this.lotNumber = lotNumber;
+	public void setPanNumber(String panNumber) {
+		this.panNumber = panNumber;
 	}
 
-	public String getControlNumber() {
-		return controlNumber;
+	public String getPanSequenceNumber() {
+		return panSequenceNumber;
 	}
 
-	public void setControlNumber(String controlNumber) {
-		this.controlNumber = controlNumber;
+	public void setPanSequenceNumber(String panSequenceNumber) {
+		this.panSequenceNumber = panSequenceNumber;
 	}
 
-	public String getCardNumber() {
-		return cardNumber;
+	public String getServiceCode() {
+		return serviceCode;
 	}
 
-	public void setCardNumber(String cardNumber) {
-		this.cardNumber = cardNumber;
+	public void setServiceCode(String serviceCode) {
+		this.serviceCode = serviceCode;
+	}
+
+	public Date getExpiryDate() {
+		return expiryDate;
+	}
+
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
+	}
+
+	public Date getEffDate() {
+		return effDate;
+	}
+
+	public void setEffDate(Date effDate) {
+		this.effDate = effDate;
 	}
 
 	public String getCardHolderName() {
@@ -90,20 +110,52 @@ public class TrackRecord {
 		this.cardHolderName = cardHolderName;
 	}
 
-	public String getShipName() {
-		return shipName;
+	public String getTrack1Data() {
+		return track1Data;
 	}
 
-	public void setShipName(String shipName) {
-		this.shipName = shipName;
+	public void setTrack1Data(String track1Data) {
+		this.track1Data = track1Data;
 	}
 
-	public Date getExpiryDate() {
-		return expiryDate;
+	public String getTrack2Data() {
+		return track2Data;
 	}
 
-	public void setExpiryDate(Date expiryDate) {
-		this.expiryDate = expiryDate;
+	public void setTrack2Data(String track2Data) {
+		this.track2Data = track2Data;
+	}
+
+	public String getCvvCode1() {
+		return cvvCode1;
+	}
+
+	public void setCvvCode1(String cvvCode1) {
+		this.cvvCode1 = cvvCode1;
+	}
+
+	public String getCvvCode2() {
+		return cvvCode2;
+	}
+
+	public void setCvvCode2(String cvvCode2) {
+		this.cvvCode2 = cvvCode2;
+	}
+
+	public String getPin() {
+		return pin;
+	}
+
+	public void setPin(String pin) {
+		this.pin = pin;
+	}
+
+	public Date getCreatedDateTime() {
+		return createdDateTime;
+	}
+
+	public void setCreatedDateTime(Date createdDateTime) {
+		this.createdDateTime = createdDateTime;
 	}
 
 	public long getId() {
@@ -120,73 +172,5 @@ public class TrackRecord {
 
 	public void setJobId(long jobId) {
 		this.jobId = jobId;
-	}
-
-	//
-	//	public String getCvc() {
-	//		return cvc;
-	//	}
-	//
-	//	public void setCvc(String cvc) {
-	//		this.cvc = cvc;
-	//	}
-	//
-	//	public String getTrack1Data() {
-	//		return track1Data;
-	//	}
-	//
-	//	public void setTrack1Data(String track1Data) {
-	//		this.track1Data = track1Data;
-	//	}
-	//
-	//	public String getTrack2Data() {
-	//		return track2Data;
-	//	}
-	//
-	//	public void setTrack2Data(String track2Data) {
-	//		this.track2Data = track2Data;
-	//	}
-
-	public String getCardDesignId() {
-		return cardDesignId;
-	}
-
-	public void setCardDesignId(String cardDesignId) {
-		this.cardDesignId = cardDesignId;
-	}
-
-	public Date getCreatedDateTime() {		return createdDateTime;	}
-
-	public void setCreatedDateTime(Date createdDateTime) {		this.createdDateTime = createdDateTime;	}
-
-	public TrackRecord() {
-	}
-
-	public TrackRecord(String lotNumber, String controlNumber,
-					   String cardNumber, String cardHolderName,
-					   String shipName, Date expiryDate, String cardDesignId) {
-		this.lotNumber = lotNumber;
-		this.controlNumber = controlNumber;
-		this.cardNumber = cardNumber;
-		this.cardHolderName = cardHolderName;
-		this.shipName = shipName;
-		this.expiryDate = expiryDate;
-		this.cardDesignId = cardDesignId;
-	}
-
-	public TrackRecord(String lotNumber, String controlNumber,
-					   String cardNumber, String cardHolderName,
-					   String shipName, String cardDesignId) {
-		this.lotNumber = lotNumber;
-		this.controlNumber = controlNumber;
-		this.cardNumber = cardNumber;
-		this.cardHolderName = cardHolderName;
-		this.shipName = shipName;
-		this.cardDesignId = cardDesignId;
-	}
-
-	public TrackRecord(String lotNumber, String cardNumber) {
-		this.lotNumber = lotNumber;
-		this.cardNumber = cardNumber;
 	}
 }

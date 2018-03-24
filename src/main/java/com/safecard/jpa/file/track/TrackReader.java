@@ -105,12 +105,17 @@ public class TrackReader {
                 System.out.println(line);
                 String cols[] = line.split(",");
                 TrackRecord trackRecord = new TrackRecord();
-                trackRecord.setLotNumber(cols[0]);
-                trackRecord.setControlNumber(cols[1]);
-                trackRecord.setCardDesignId(cols[2]);
-                trackRecord.setCardNumber(cols[3]);
-                trackRecord.setCardHolderName(cols[4]);
-                trackRecord.setCardDesignId(cols[5]);
+                trackRecord.setPanNumber(cols[0]);
+                trackRecord.setPanSequenceNumber(cols[1]);
+                trackRecord.setCardHolderName(cols[2]);
+                trackRecord.setTrack1Data(cols[3]);
+                trackRecord.setTrack2Data(cols[4]);
+                trackRecord.setCvvCode1(cols[5]);
+                trackRecord.setCvvCode2(cols[6]);
+                trackRecord.setPin(cols[7]);
+                trackRecord.setExpiryDate(new Date());
+                trackRecord.setEffDate(new Date());
+                trackRecord.setCreatedDateTime(new Date());
                 trackRecords.add(trackRecord);
                }
             scanner.close();

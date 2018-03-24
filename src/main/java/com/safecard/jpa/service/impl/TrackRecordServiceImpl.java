@@ -83,12 +83,9 @@ public class TrackRecordServiceImpl implements TrackRecordService {
     }
 
     @Override
-    public Collection<TrackRecord> fetchDataByLotNumber(String lotNumber) {
-        return trackRecordRepository.findBylotNumber(lotNumber);
+    public Collection<TrackRecord> fetchDataByPanNumber(String lotNumber) {
+        return trackRecordRepository.findByPanNumber(lotNumber);
     }
 
-    @Override
-    public Collection<TrackRecord> findByLotNumber(String lotNumber){
-        return trackRecordRepository.findBylotNumber(lotNumber);
-    }
+
 }

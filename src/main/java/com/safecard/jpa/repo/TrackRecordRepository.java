@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface TrackRecordRepository extends CrudRepository<TrackRecord, Long>{
-	List<TrackRecord> findBylotNumber(String lotNumber);
+	List<TrackRecord> findByPanNumber(String lotNumber);
 }

@@ -19,6 +19,6 @@ public interface TrackRecordService {
 
     Collection<TrackRecord> findAll();
     TrackRecord findById(long id);
-    Collection<TrackRecord> fetchDataByLotNumber(String lotNumber);
-    Collection<TrackRecord> findByLotNumber(String lotNumber);
+    Collection<TrackRecord> fetchDataByPanNumber(String panNumber);
+
 }
