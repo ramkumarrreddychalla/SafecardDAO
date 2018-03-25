@@ -15,7 +15,7 @@ public class Job {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "JOB_ID")
+	@Column(name = "FILE_ID")
 	private long id;
 
 	@Column(name = "JOB_NAME")

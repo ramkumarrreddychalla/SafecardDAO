@@ -28,7 +28,8 @@ public class TrackReader {
         List<TrackRecord> trackRecords = trackReader.createTrackRecords(file);
 
         if(trackRecords != null && trackRecords.isEmpty()) return;
-        trackRecords.remove(0);
+        //trackRecords.remove(0);
+
         Job job = PersistJob(trackReader, file, trackRecords);
         PersistTrackRecords(trackRecords, job);
     }
@@ -48,7 +49,7 @@ public class TrackReader {
     private static void persistTrackRecords(Job job, List<TrackRecord> trackRecords, String trackRecordResourceUrl, RestTemplate restTemplate) {
         int counter = 1;
         for(TrackRecord trackRecord : trackRecords){
-            trackRecord.setJobId(job.getId());
+            trackRecord.setFileId(job.getId());
             HttpEntity<TrackRecord> request = new HttpEntity<>(trackRecord);
             ResponseEntity<TrackRecord> response =
                     restTemplate.exchange(trackRecordResourceUrl, HttpMethod.POST, request, TrackRecord.class);
@@ -63,7 +64,7 @@ public class TrackReader {
 
     private URL getFileUrl() {
         ClassLoader classLoader = getClass().getClassLoader();
-        URL resource = classLoader.getResource("trackrecords.csv");
+        URL resource = classLoader.getResource("sampletrackrecords1.csv");
         if(resource != null && null == resource.getFile()) {
             System.out.println("File Not Found ");
             //return null;
@@ -75,7 +76,7 @@ public class TrackReader {
     private Job createJob(String fileName, long size){
         Job job = new Job();
         ClassLoader classLoader = getClass().getClassLoader();
-        URL resource = classLoader.getResource("trackrecords.csv");
+        URL resource = classLoader.getResource("sampletrackrecords1.csv");
         if(resource != null && null == resource.getFile()) {
             System.out.println("File Not Found ");
             return null;
@@ -98,26 +99,41 @@ public class TrackReader {
 
         try {
             Scanner scanner = new Scanner(file);
-
             List<TrackRecord> trackRecords = new ArrayList<>();
+            int i = 0;
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 System.out.println(line);
-                String cols[] = line.split(",");
-                TrackRecord trackRecord = new TrackRecord();
-                trackRecord.setPanNumber(cols[0]);
-                trackRecord.setPanSequenceNumber(cols[1]);
-                trackRecord.setCardHolderName(cols[2]);
-                trackRecord.setTrack1Data(cols[3]);
-                trackRecord.setTrack2Data(cols[4]);
-                trackRecord.setCvvCode1(cols[5]);
-                trackRecord.setCvvCode2(cols[6]);
-                trackRecord.setPin(cols[7]);
-                trackRecord.setExpiryDate(new Date());
-                trackRecord.setEffDate(new Date());
-                trackRecord.setCreatedDateTime(new Date());
-                trackRecords.add(trackRecord);
-               }
+                if (line.equalsIgnoreCase(",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,")) {
+                    return trackRecords;
+                }
+
+                //String cols[] = line.split(",");
+
+                if (i != 0) {
+                    String cols[] = line.split(",");
+                    TrackRecord trackRecord = new TrackRecord();
+                    trackRecord.setJobId(Integer.parseInt(cols[0]));
+                    trackRecord.setRecordNumber(Integer.parseInt(cols[1]));
+                    trackRecord.setPan(cols[2]);
+                    trackRecord.setCardHolderName(cols[3]);
+                    trackRecord.setCardDesignID(cols[9]);
+                    trackRecord.setMemberId(cols[24]);
+                    trackRecord.setCardIssuanceTypeId(cols[61]); //CARD TYPE
+                    trackRecord.setPanSequenceNumber(cols[63]);
+                    trackRecord.setExpirationDate(new Date());  // cols[6]
+                    trackRecord.setCvv2(cols[6]);
+                    trackRecord.setCvv(cols[62]);
+                    trackRecord.setTrack1DiscretionaryData(cols[7]);
+                    trackRecord.setTrack2DiscretionaryData(cols[8]);
+                    trackRecord.setKeyIndex(cols[64]);
+                    // key index
+                    trackRecord.setExpirationDate(new Date());
+                    trackRecord.setCreatedDateTime(new Date());
+                    trackRecords.add(trackRecord);
+                }
+                i++;
+            }
             scanner.close();
             return trackRecords;
         } catch (IOException e) {

@@ -5,7 +5,7 @@ DROP TABLE public.trackrecord;
 CREATE TABLE public.trackrecord
 (
     id bigint NOT NULL,
-    PAN_NO character varying(20) COLLATE pg_catalog."default",
+    CARD_NUMBER character varying(20) COLLATE pg_catalog."default",
     PAN_SEQ_NO character varying(20) COLLATE pg_catalog."default",
     SVC_CODE character varying(20) COLLATE pg_catalog."default",
     EXPIRY_DATE date,
