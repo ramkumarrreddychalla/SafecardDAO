@@ -1,0 +1,65 @@
+"cardTransactionId":60734,                             - will be Derived 
+"messageTypeId":1,                                     - Found (Card Type)
+"cardIssuanceTypeId":21,							   - Found (Card Design ID)
+"encodedMagStripeData":"B4131111075533712^MARLER/JESSICA^1903201000000000000000406000000;4131111075533712=19032010000000040600",
+"pan":"4131121075533712",                              - Card No
+"cardName":"MARLER/JESSICA",                           - Found (Cardholder Name)
+"pin":"2016",                           			   - Not Found 
+"pinOffset":"07542",                           		   - Not Found 
+"cvv":"406",						                   - Not Found 
+"cvv2":"981",                                          - Found (question / Doubt: CVC2/CVV2)
+"expirationDate":"190331",                             - Found (Question/Doubt : expiryDate??)
+"expirationDateMMYY":"0319",                           - Not Found (but we can derive this from expiryDate)
+"expiryDateYYMM":"1903",                               - Not Found (but we can derive this from expiryDate)
+"magServiceCode":"201",                                - Not Found 
+"chipServiceCode":"201",                               - Not Found
+"iCVV":"315",                                          - Found (iCVV/Chip CVC/CVV3)
+"smartcardDeviceName":"OMNIKEY CardMan 5x21 0",        - Not Found
+"cardProcessorTypeId":0,							   - (NOT APPLICABLE)
+"panSequenceNumber":"0",                               - Found
+"track1DiscretionaryData":"000000000000000315000000",  - Found
+"track2DiscretionaryData":"19032010000000031500"}      - Found
+
+
+CREATE TABLE public.trackrecord
+(
+	id bigint NOT NULL,
+	MESSAGE_TYPE_ID  character varying(60) COLLATE pg_catalog."default",
+	CARD_ISSUANCE_TYPE_ID character varying(60) COLLATE pg_catalog."default",
+	CARD_NUMBER character varying(60) COLLATE pg_catalog."default",
+	PAN_SEQ_NO character varying(60) COLLATE pg_catalog."default",
+	CARD_NAME character varying(60) COLLATE pg_catalog."default",
+	PIN character varying(60) COLLATE pg_catalog."default",
+	PIN_OFFSET character varying(60) COLLATE pg_catalog."default",
+	CVV character varying(60) COLLATE pg_catalog."default",
+	CVV2 character varying(60) COLLATE pg_catalog."default",
+	MAG_SERVICE_CODE character varying(60) COLLATE pg_catalog."default",
+	CHIP_SERVICE_CODE character varying(60) COLLATE pg_catalog."default",
+	CARD_DEVICE_NAME character varying(60) COLLATE pg_catalog."default",
+	CARD_DESIGN_ID  character varying(60) COLLATE pg_catalog."default",
+	KEY_INDEX character varying(60) COLLATE pg_catalog."default",
+	SVC_CODE  character varying(60) COLLATE pg_catalog."default",
+	TRACK1_DISCRETIONARY_DATA character varying(255) COLLATE pg_catalog."default",
+	TRACK2_DISCRETIONARY_DATA character varying(255) COLLATE pg_catalog."default",
+	CVV_CODE1 character varying(60) COLLATE pg_catalog."default",
+	CVV_CODE2 character varying(60) COLLATE pg_catalog."default",
+	LOT_NUMBER character varying(60) COLLATE pg_catalog."default",
+	CONTROL_NUMBER character varying(60) COLLATE pg_catalog."default",
+	EXPIRATION_DATE date,
+	EFFECTIVE_DATE date,
+	FILE_ID bigint,
+	JOB_ID bigint,
+	RECORD_NUMBER bigint,	
+    CONSTRAINT trackrecord_pkey PRIMARY KEY (id),
+    CONSTRAINT trackrecord_to_job FOREIGN KEY (file_id)
+        REFERENCES public.job (file_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.trackrecord
+    OWNER to postgres;
